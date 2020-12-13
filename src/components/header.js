@@ -20,13 +20,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar(props) {
   const classes = useStyles();
-  const [user, setUser] = useState({user:'Patient'})
-  useEffect(()=>{
-    console.log(user)
-  })
-
+  const [user, setUser] = useState({user:'Doctor'})
+  
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -45,9 +42,9 @@ export default function ButtonAppBar() {
           </IconButton>
           <Typography variant="h6" className={classes.title} component="div">
           </Typography>
-          <Link style={{ textDecoration: 'none',color:'white' }} to={user.user}>
-             <Button color="inherit">Login</Button>
-          </Link>
+          {props.item == "home" ? <Link style={{ textDecoration: 'none',color:'white' }} to={user.user}>
+          <Button color="inherit">Login</Button>
+       </Link> : props.item != "signUp" ? <h3>{props.item}</h3> : ""}
         </Toolbar>
       </AppBar>
     </div>

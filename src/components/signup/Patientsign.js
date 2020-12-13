@@ -5,6 +5,7 @@ import {Paper} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import {Chip,Typography} from '@material-ui/core/';
 import '../../css/forms.css'
+import Header from '../header'
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -21,55 +22,64 @@ export default function Patientsignin() {
   const classes = useStyles();
 
   return (
-   <Paper>
-   <div className="center">
-   <form className={classes.root}  autoComplete="off">
-   <div>
-   <Typography  variant="h3" color="primary">Patient SignUp</Typography>
-   <br></br>
-     <TextField
-       id="name"
-       label="Name"
-       type="text"
-     />
-     <br></br>
-     <TextField
-       id="address"
-       label="Address"
-     />
-     <br></br>
-     <TextField
-       id="age"
-       label="Age"
-       type="number"
-     />
-     <br></br>
-     <TextField
-       id="mobile"
-       label="Mobile Number"
-       type="text"
-     />
-     <br></br>
-     <TextField
-     id="email"
-     label="Email"
-     type="email"
-   />
-   <br></br>
-     <TextField
-       id="allergies"
-       label="allergies"
-       defaultValue="None"
-       type="text"
-     />
+  <div>
+  <Header item = "signUp" ></Header>
+  <Paper>
+  <div className="center">
+  <form className={classes.root}  autoComplete="off">
+  <div>
+  <Typography  variant="h3" color="primary">Patient SignUp</Typography>
+  <br></br>
+    <TextField
+      id="name"
+      label="Name"
+      type="text"
+      variant="standard"
+    />
+    <br></br>
+    <TextField
+      id="address"
+      label="Address"
+      variant="standard"
+    />
+    <br></br>
+    <TextField
+      id="age"
+      label="Age"
+      type="number"
+      variant="standard"
+    />
+    <br></br>
+    <TextField
+      id="mobile"
+      label="Mobile Number"
+      type="text"
+      variant="standard"
+    />
+    <br></br>
+    <TextField
+    id="email"
+    label="Email"
+    type="email"
+    variant="standard"
+  />
+  <br></br>
+    <TextField
+      id="allergies"
+      label="allergies"
+      defaultValue="None"
+      type="text"
+      variant="standard"
+    />
+  </div>
+  <br></br>
+  <Button variant="contained" color="primary">
+       Submit
+      </Button>
+</form>
+  
    </div>
-   <br></br>
-   <Button variant="contained" color="primary">
-        Submit
-       </Button>
- </form>
-   
-    </div>
-   </Paper>
+  </Paper>
+  </div>
   );
 }

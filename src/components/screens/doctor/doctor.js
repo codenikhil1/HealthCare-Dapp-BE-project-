@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Patient() {
+function Doctor() {
     const style ={
         Paper:{padding:20,marginTop:10,marginBottom:20,height:'550px',marginLeft:10}
     }
@@ -30,25 +30,22 @@ function Patient() {
     return (
 
         <div>
-        <Header item = "Patient"></Header>
+        <Header item = "Doctor"></Header>
             <Grid container>
                 <Grid item sm = {3}>
                     <Paper style={style.Paper}>
                     <List component="nav" aria-label="main mailbox folders">
                     <ListItem button onClick={() =>selectAction(1)}>
-                      <ListItemText primary="Take Appointment" />
+                      <ListItemText primary="Treat Patient" />
                     </ListItem>
                     <ListItem button>
-                      <ListItemText primary="Get Your Details"  onClick={() =>selectAction(2)} />
+                      <ListItemText primary="Send Medication To Chemist" onClick={() =>selectAction(2)} />
                     </ListItem>
                     <ListItem button>
-                      <ListItemText primary="Get Doctor Details" onClick={() =>selectAction(3)} />
+                      <ListItemText primary="Approve Appointment" onClick={() =>selectAction(3)} />
                     </ListItem>
                     <ListItem button>
-                      <ListItemText primary="Get Insurance Company Details" onClick={() =>selectAction(4)} />
-                    </ListItem>
-                    <ListItem button>
-                      <ListItemText primary="Apply For Insurance" onClick={() =>selectAction(5)} />
+                      <ListItemText primary="Update Precaution" onClick={() =>selectAction(4)} />
                     </ListItem>
                   </List>
                     </Paper>
@@ -61,4 +58,4 @@ function Patient() {
     )
 }
 
-export default Patient
+export default Doctor

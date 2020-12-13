@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button"
 import { makeStyles } from '@material-ui/core/styles';
 import {Chip,Typography} from '@material-ui/core/';
 import '../../css/forms.css'
+import Header from '../header'
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -20,6 +21,8 @@ export default function Insurancesignin() {
   const classes = useStyles();
 
   return (
+    <div>
+    <Header item = "signUp" ></Header>
     <div className="center">
     <form className={classes.root}  autoComplete="off">
     <div>
@@ -72,6 +75,7 @@ export default function Insurancesignin() {
          Submit
         </Button>
   </form>
+    </div>
     </div>
   );
 }

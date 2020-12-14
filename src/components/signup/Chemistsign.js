@@ -33,12 +33,14 @@ export default function Chemitsignin() {
         label="Name"
         type="text"
         variant="standard"
+        required
       />
       <br></br>
       <TextField
         id="address"
         label="Address"
         variant="standard"
+        required
       />
       <br></br>
       <TextField
@@ -46,6 +48,7 @@ export default function Chemitsignin() {
         label="Age"
         type="number"
         variant="standard"
+        required
       />
       <br></br>
       <TextField
@@ -53,6 +56,7 @@ export default function Chemitsignin() {
         label="Mobile Number"
         type="text"
         variant="standard"
+        required
       />
       <br></br>
       <TextField
@@ -60,6 +64,7 @@ export default function Chemitsignin() {
       label="Email"
       type="email"
       variant="standard"
+      required
     />
     <br></br>
       <TextField
@@ -68,6 +73,7 @@ export default function Chemitsignin() {
         defaultValue="None"
         type="text"
         variant="standard"
+        required
       />
     </div>
     <br></br>

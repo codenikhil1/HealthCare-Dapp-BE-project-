@@ -41,7 +41,7 @@ function TakeAppointment(){
              Take Appointment
         </Typography>
         <form className={classes.root} noValidate autoComplete="off">
-        <TextField className = {{width:'400px'}} id="standard-basic" label="Doctor Address" variant="standard" />
+        <TextField className = {{width:'400px'}} id="standard-basic" label="Doctor Address" variant="standard" required />
         <br></br>
         <Button variant="contained" color="secondary">
            Apply
@@ -101,7 +101,7 @@ function ApplyInsurance(){
              Apply For Insaurance
         </Typography>
         <form className={classes.root} noValidate autoComplete="off">
-        <TextField className = {{width:'400px'}} id="standard-basic" label="Insurance Company Address" variant="standard" />
+        <TextField className = {{width:'400px'}} id="standard-basic" label="Insurance Company Address" variant="standard" required/>
         <br></br>
         <Button variant="contained" color="secondary">
            Apply

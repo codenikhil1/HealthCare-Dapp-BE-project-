@@ -1,51 +1,116 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography'
+import {Paper,Card,CardActionArea,CardMedia,CardContent} from '@material-ui/core/'
 import  '../css/temp.css'
 import {Link} from 'react-router-dom'
 import '../css/linkstyle.css'
+import Route from 'react-router-dom'
 import Header from './header'
+import Pimage from "../photos/patient.png"
+import Dimage from "../photos/doctor.png"
+import Cimage from "../photos/chemist.png"
+import Iimage from "../photos/insaurance.png"
 function Main() {
-    
+    const useStyles = makeStyles({
+        root: {
+          maxWidth: 500,
+          marginTop : 50,
+          marginLeft : 50,
+        },
+        media: {
+          height: 140,
+        },
+        Card: {
+            display : 'flex',
+            justifyContent:'center'
+
+        }
+      });
+      const classes = useStyles();
     return (
         <div>
         <Header item = "home"></Header>
-        <div className ="center">
-        <Grid
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-        >
-        <Typography variant="h" component="h2" color = "secondary" >
-        SIGN UP
-      </Typography>
-            <Grid item xs className="button">
-                 <Link style={{ textDecoration: 'none' }} to="patientsignin">
-                     <Button variant="contained">Patient</Button>
-                 </Link>
-            </Grid>
-            <Grid item xs className="button">
-                 <Link style={{ textDecoration: 'none' }}  to ="doctorsignin">
-                    <Button variant="contained">Doctor</Button>
-                 </Link>
-            </Grid>
-            <Grid item xs className="button">
-                 <Link style={{ textDecoration: 'none' }}  to="chemistsignin">
-                     <Button variant="contained">Chemist</Button>
-                 </Link>
-            </Grid>
-            <Grid item xs className="button">
-                 <Link style={{ textDecoration: 'none' }}  to="insurancesignin">
-                    <Button variant="contained">Insaurance</Button>
-                 </Link>
-            </Grid>
-        </Grid>
-                
-            </div>
+            <div className={classes.Card}>
+            <Link to="/patientsignin" style={{ textDecoration: 'none'}}>
+            <Card className={classes.root}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={Pimage}
+                title="Contemplative Reptile"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Patient
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Sign Up As Patient
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            </Card>
+            </Link>
+            <Link to="/doctorsignin" style={{ textDecoration: 'none'}}>
+            <Card className={classes.root} >
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={Dimage}
+                title="Contemplative Reptile"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Doctor
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Sign Up As Doctor
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            </Card>
+            </Link>
+            <Link to="/chemistsignin" style={{ textDecoration: 'none'}}>
+            <Card className={classes.root} >
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={Cimage}
+                title="Contemplative Reptile"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Chemist
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Sign Up As Chemist
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            </Card>
+            </Link>
+           <Link to="/insurancesignin" style={{ textDecoration: 'none'}}>
+           <Card className={classes.root} >
+           <CardActionArea>
+             <CardMedia
+               className={classes.media}
+               image={Iimage}
+               title="Contemplative Reptile"
+             />
+             <CardContent>
+               <Typography gutterBottom variant="h5" component="h2">
+                 Ins. Company
+               </Typography>
+               <Typography variant="body2" color="textSecondary" component="p">
+                 Sign Up As Insaurance Company
+               </Typography>
+             </CardContent>
+           </CardActionArea>
+           </Card>
+           </Link>
+        </div>
         </div>
        
     )

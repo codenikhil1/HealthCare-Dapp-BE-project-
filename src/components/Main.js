@@ -40,7 +40,7 @@ function Main() {
               <CardMedia
                 className={classes.media}
                 image={Pimage}
-                title="Contemplative Reptile"
+                title="Register As Patient"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -59,7 +59,7 @@ function Main() {
               <CardMedia
                 className={classes.media}
                 image={Dimage}
-                title="Contemplative Reptile"
+                title="Register As Doctor"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -78,7 +78,7 @@ function Main() {
               <CardMedia
                 className={classes.media}
                 image={Cimage}
-                title="Contemplative Reptile"
+                title="Register As Chemist"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -97,7 +97,7 @@ function Main() {
              <CardMedia
                className={classes.media}
                image={Iimage}
-               title="Contemplative Reptile"
+               title="Register As Insaurance Company"
              />
              <CardContent>
                <Typography gutterBottom variant="h5" component="h2">

@@ -44,14 +44,6 @@ export default function Chemitsignin() {
       />
       <br></br>
       <TextField
-        id="age"
-        label="Age"
-        type="number"
-        variant="standard"
-        required
-      />
-      <br></br>
-      <TextField
         id="mobile"
         label="Mobile Number"
         type="text"
@@ -67,14 +59,6 @@ export default function Chemitsignin() {
       required
     />
     <br></br>
-      <TextField
-        id="allergies"
-        label="allergies"
-        defaultValue="None"
-        type="text"
-        variant="standard"
-        required
-      />
     </div>
     <br></br>
     <Button variant="contained" color="primary">

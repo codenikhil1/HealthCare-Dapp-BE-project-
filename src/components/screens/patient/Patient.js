@@ -36,7 +36,7 @@ function Patient() {
                     <Paper style={style.Paper}>
                     <List component="nav" aria-label="main mailbox folders">
                     <ListItem button onClick={() =>selectAction(1)}>
-                      <ListItemText primary="Take Appointment" />
+                      <ListItemText primary="Grant Access" />
                     </ListItem>
                     <ListItem button>
                       <ListItemText primary="Get Your Details"  onClick={() =>selectAction(2)} />

@@ -6,6 +6,8 @@ import InsuranceSign from './signup/Insurancesign'
 import Chemistsign from './signup/Chemistsign'
 import Patient from'./screens/patient/Patient'
 import Doctor from './screens/doctor/doctor'
+import Chemist from './screens/Chemist/Chemist'
+import Insaurance from "./screens/Insaurance/Insaurance"
 import {BrowserRouter as Router,Switch,Route}from 'react-router-dom'
 function home() {
     return (
@@ -19,6 +21,8 @@ function home() {
             <Route path='/insurancesignin'  component={InsuranceSign} />
             <Route path ='/Patient' component={Patient}/>
             <Route path ='/Doctor' component={Doctor}/>
+            <Route path ='/Chemist' component={Chemist}/>
+            <Route path ='/Insaurance' component={Insaurance}/>
          </Switch>
     
     </div>

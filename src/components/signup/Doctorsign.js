@@ -44,16 +44,16 @@ export default function Doctorsignin() {
       />
       <br></br>
       <TextField
-        id="age"
-        label="Age"
-        type="number"
+        id="practiceType"
+        label="practiceType"
+        type="text"
         variant="standard"
         required
       />
       <br></br>
       <TextField
-        id="mobile"
-        label="Mobile Number"
+        id="AreaOfExpertize"
+        label="AreaOfExpertize"
         type="text"
         variant="standard"
         required
@@ -67,14 +67,6 @@ export default function Doctorsignin() {
       required
     />
     <br></br>
-      <TextField
-        id="allergies"
-        label="allergies"
-        defaultValue="None"
-        type="text"
-        variant="standard"
-        required
-      />
     </div>
     <br></br>
     <Button variant="contained" color="primary">

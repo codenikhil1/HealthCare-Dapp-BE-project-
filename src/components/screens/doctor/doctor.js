@@ -42,7 +42,7 @@ function Doctor() {
                       <ListItemText primary="Send Medication To Chemist" onClick={() =>selectAction(2)} />
                     </ListItem>
                     <ListItem button>
-                      <ListItemText primary="Approve Appointment" onClick={() =>selectAction(3)} />
+                      <ListItemText primary="Get Treatment Details" onClick={() =>selectAction(3)} />
                     </ListItem>
                     <ListItem button>
                       <ListItemText primary="Update Precaution" onClick={() =>selectAction(4)} />

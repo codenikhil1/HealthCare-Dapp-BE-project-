@@ -30,7 +30,7 @@ export default function Insurancesignin() {
     <br></br>
       <TextField
         id="name"
-        label="Name"
+        label="CompanyName"
         type="text"
         variant="standard"
         required
@@ -39,14 +39,6 @@ export default function Insurancesignin() {
       <TextField
         id="address"
         label="Address"
-        variant="standard"
-        required
-      />
-      <br></br>
-      <TextField
-        id="age"
-        label="Age"
-        type="number"
         variant="standard"
         required
       />
@@ -67,14 +59,7 @@ export default function Insurancesignin() {
       required
     />
     <br></br>
-      <TextField
-        id="allergies"
-        label="allergies"
-        defaultValue="None"
-        type="text"
-        variant="standard"
-        required
-      />
+     
     </div>
     <br></br>
     <Button variant="contained" color="primary">

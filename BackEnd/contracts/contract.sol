@@ -9,8 +9,12 @@ contract Storage {
     mapping(address => patient) PData;
     mapping(address=> address[]) patToDoctor;
     mapping(address => doctor) DData;
+    mapping(address => insaurance) IData;
+    mapping(address => chemist) CData;
     mapping(uint => treatment) treatmentDetails;
-    mapping(address => medicine) patToMed;
+    mapping(address => medicine) chemToMed;
+    mapping(address => bill[]) patToChemistBill;
+    mapping(address => address[]) insToPat;
     //constructor
     constructor() public{
         authCaller[msg.sender] = 1;
@@ -22,9 +26,12 @@ contract Storage {
      event ChemistAdded(address ChemistAdd);
      event insAdded(address insAdd);
      event treated(address indexed Did,uint tid);
-    
     //structs
-    
+    struct bill{
+        address chemid;
+        string date;
+        uint amt;
+    }
      struct patient{
         string Phash; 
         uint [] treatmentId;
@@ -52,10 +59,7 @@ contract Storage {
         string medicines;
     }
     //struct variable
-    patient pat;
-    doctor dr;
-    treatment trt;
-    insaurance ins;
+   
     
     //patient functions
     
@@ -72,7 +76,7 @@ contract Storage {
         require(msg.sender == _Padd);
         require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("patient")));
         
-        return PData[msg.sender];
+        return PData[msg.sender].Phash;
     }
     
     function getDoctor(address _Dadd) public returns(string memory){
@@ -87,12 +91,10 @@ contract Storage {
     }
     function applyIns(address _Iadd) public returns(bool){
          require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("patient")));
-        //complete
+         insToPat[_Iadd].push(msg.sender);
+         return true;
+            
     }
-    function getInsurance(address _Iadd) public returns(string memory){
-        //need to complete
-    }
-    //
      function isValid(address pat,address doctor) public returns(bool){
         address[] memory temp = patToDoctor[pat];
         uint len = temp.length;
@@ -103,13 +105,17 @@ contract Storage {
         return false;
     }
     
+    //getUser
+    function getUser(address _Uaddress) public returns(string){
+        return userType[_Uaddress];
+    }
     
-    //Doctor patient
+    //Doctor 
     
      function addDoc(string memory _Dhash) public returns(bool){
         require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("")));
         userType[msg.sender] = 'doctor';
-        DData[msg.sender] = _Dhash;
+        DData[msg.sender].Dhash = _Dhash;
         emit DoctorAdded(msg.sender);
         return true;
     }
@@ -121,17 +127,16 @@ contract Storage {
         return true;
         
     }
-    function createTreatmentID(uint patient_id) public returns (uint){
-        uint treatment_id = (142317*patient_id)%1000003;
-        return treatment_id;
-    }
+   function random() private view returns (uint) {
+       return uint(uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty)))%251);
+   }
     function treatPatient(address _Padd, string memory _diagnosis,string memory _test_conducted,uint _bill,string memory _medicine)
     public returns(uint){
         require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("doctor")));
         require(isValid(_Padd,msg.sender) == true);
-        uint _tid = createTreatmentID(patient_id);
+        uint _tid = random();
         treatment memory trt;
-        trt.doctor_id = _msg.sender;
+        trt.doctor_id = msg.sender;
         trt.diagnosis = _diagnosis;
         trt.test_conducted = _test_conducted;
         trt.bill = _bill;
@@ -141,13 +146,13 @@ contract Storage {
         emit treated(msg.sender,_tid);
         return _tid;
     }
-    function giveMedicines(address _pid,address _cadd.string memory _medicines) public returns(bool){
+    function giveMedicines(address _pid,address _cadd,string memory _medicines) public returns(bool){
         require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("doctor")));
-        require(isValid(_Padd,msg.sender) == true);
+        require(isValid(_pid,msg.sender) == true);
         medicine memory md;
         md.pid = _pid;
         md.medicines = _medicines;
-        patToMed[_cadd] = md;
+        chemToMed[_cadd] = md;
         return true;
     }
     function getTrtDetails(uint _tid) public returns(treatment memory trt){
@@ -156,6 +161,48 @@ contract Storage {
     }
     
     //chemist
+    
+    function addChemist(address _Cid,string memory Chash) public returns(bool){
+      require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("")));
+      userType[msg.sender] = 'Chemist';
+        CData[msg.sender].Chash = Chash;
+        emit ChemistAdded(msg.sender);
+        return true;
+    }
+    
+    function sellMedicines(address _pid,string memory _date,uint _amt) public returns(bool){
+        require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("Chemist")));
+        
+        patToChemistBill[_pid].push(bill(msg.sender,_date,_amt));
+        
+    }
+    
+   //insaurance
+   
+   function addInsCompany(address _Iid,string memory Ihash) public returns(bool){
+       require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("")));
+        userType[msg.sender] = 'Insurance';
+        IData[msg.sender].Ihash = Ihash;
+        emit insAdded(msg.sender);
+        return true;
+   }
+    function approveInsurance(address patId) public returns(bool){
+        require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("Insurance")));
+        address[] memory arr = insToPat[msg.sender];
+        uint len = arr.length;
+        int j = -122;
+        for(uint i = 0 ; i < len ; i++ ){
+            if(arr[i] == patId){
+             j=int (i);   
+            }
+        }
+        if(j != -122){
+            uint i = uint (j);
+            delete insToPat[msg.sender][i];
+        }
+        return true;
+    }
+    
     
     
     

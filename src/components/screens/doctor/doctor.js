@@ -30,7 +30,7 @@ function Doctor() {
     return (
 
         <div>
-        <Header item = "Doctor"></Header>
+        <Header item = "Nikhil"></Header>
             <Grid container>
                 <Grid item sm = {3}>
                     <Paper style={style.Paper}>

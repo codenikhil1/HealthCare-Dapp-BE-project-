@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
 
-pragma solidity >=0.7.0 <0.8.0;
+pragma solidity >=0.5.16;
 pragma experimental ABIEncoderV2;
-contract Storage {
+contract Health {
     //mappings
     mapping(address => uint) authCaller;
     mapping(address => string) userType;
@@ -63,6 +63,8 @@ contract Storage {
     
     //patient functions
     
+    //make function to show all chemist bills
+    
     function addPat(string memory _Phash) public returns(bool){
         require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("")));
         patient memory pat;
@@ -71,12 +73,16 @@ contract Storage {
         PData[msg.sender] = pat;
         return true;
     }
-    
-    function getPatient(address _Padd) public returns(string memory){
+    function getbills() public returns(bill[] memory){
+        require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("patient")));
+        return patToChemistBill[msg.sender];
+    }
+    //return patient treatmentId and precautions as well
+    function getPatient(address _Padd) public returns(string memory,uint[] memory,string memory){
         require(msg.sender == _Padd);
         require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("patient")));
         
-        return PData[msg.sender].Phash;
+        return (PData[msg.sender].Phash,PData[msg.sender].treatmentId,PData[msg.sender].precautions);
     }
     
     function getDoctor(address _Dadd) public returns(string memory){
@@ -89,8 +95,11 @@ contract Storage {
         patToDoctor[msg.sender].push(_Dadd);
         return true;
     }
+    
+    //check give address is insaurance company is or not
     function applyIns(address _Iadd) public returns(bool){
          require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("patient")));
+         require(keccak256(abi.encodePacked(userType[_Iadd])) == keccak256(abi.encodePacked("Insurance")));
          insToPat[_Iadd].push(msg.sender);
          return true;
             
@@ -106,7 +115,7 @@ contract Storage {
     }
     
     //getUser
-    function getUser(address _Uaddress) public returns(string){
+    function getUser(address _Uaddress) public returns(string memory){
         return userType[_Uaddress];
     }
     
@@ -146,8 +155,10 @@ contract Storage {
         emit treated(msg.sender,_tid);
         return _tid;
     }
+    //check if chemist is present   
     function giveMedicines(address _pid,address _cadd,string memory _medicines) public returns(bool){
         require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("doctor")));
+        require(keccak256(abi.encodePacked(userType[_cadd])) == keccak256(abi.encodePacked("Chemist")));
         require(isValid(_pid,msg.sender) == true);
         medicine memory md;
         md.pid = _pid;
@@ -162,7 +173,7 @@ contract Storage {
     
     //chemist
     
-    function addChemist(address _Cid,string memory Chash) public returns(bool){
+    function addChemist(string memory Chash) public returns(bool){
       require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("")));
       userType[msg.sender] = 'Chemist';
         CData[msg.sender].Chash = Chash;
@@ -174,12 +185,12 @@ contract Storage {
         require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("Chemist")));
         
         patToChemistBill[_pid].push(bill(msg.sender,_date,_amt));
-        
+        return true;
     }
     
    //insaurance
    
-   function addInsCompany(address _Iid,string memory Ihash) public returns(bool){
+   function addInsCompany(string memory Ihash) public returns(bool){
        require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("")));
         userType[msg.sender] = 'Insurance';
         IData[msg.sender].Ihash = Ihash;
@@ -202,23 +213,5 @@ contract Storage {
         }
         return true;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }

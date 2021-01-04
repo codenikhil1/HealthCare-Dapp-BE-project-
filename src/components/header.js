@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {Link} from 'react-router-dom'
+import web3 from '../web3'
+import contract from '../contract'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -22,8 +24,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar(props) {
   const classes = useStyles();
-  const [user, setUser] = useState({user:'Doctor'})
-  
+  const [user, setUser] = useState({user:''})
+  useEffect(() => {
+    async function loadAcc(){
+      await web3.eth.getAccounts().then(async function(acc){
+        contract.methods.getUser(acc[0]).call().then(async function(res){
+          console.log(res)
+          setUser({user:res})
+        })
+    })
+    }
+    loadAcc();
+  }, [])
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -43,7 +55,7 @@ export default function ButtonAppBar(props) {
           <Typography variant="h6" className={classes.title} component="div">
           </Typography>
           {props.item == "home" ? <Link style={{ textDecoration: 'none',color:'white' }} to={user.user}>
-          <Button color="inherit">Login</Button>
+          <Button  color="inherit">Login</Button>
        </Link> : props.item != "signUp" ? <h3>{props.item}</h3> : ""}
         </Toolbar>
       </AppBar>

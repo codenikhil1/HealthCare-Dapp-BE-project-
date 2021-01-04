@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {Grid,Paper,Typography,Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import {useState,useEffect} from 'react'
+import web3 from '../../../web3'
+import contract from '../../../contract'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -21,16 +24,28 @@ function Patient() {
     const style ={
         Paper:{padding:20,marginTop:10,marginBottom:20,height:'550px',marginLeft:10}
     }
+    const [acc,setacc] = useState({accAdd : ""})
+    const[isloaded,setLoaded] = useState(false);
     const classes = useStyles();
     const[action,setAction] = useState(0)
     function selectAction(action1){
       setAction(action1)
       console.log(action)
     }
+    useEffect(() => {
+      async function loadAcc(){
+        await web3.eth.getAccounts().then(async function(acc){
+          setacc({accAdd:acc[0]})
+          setLoaded(true);
+      })
+      }
+       loadAcc()
+    },[])
     return (
 
         <div>
-        <Header item = "Patient"></Header>
+          {isloaded &&  <div>
+            <Header item = {acc.accAdd}></Header>
             <Grid container>
                 <Grid item sm = {3}>
                     <Paper style={style.Paper}>
@@ -38,7 +53,7 @@ function Patient() {
                     <ListItem button onClick={() =>selectAction(1)}>
                       <ListItemText primary="Grant Access" />
                     </ListItem>
-                    <ListItem button>
+                    <ListItem  button>
                       <ListItemText primary="Get Your Details"  onClick={() =>selectAction(2)} />
                     </ListItem>
                     <ListItem button>
@@ -54,9 +69,10 @@ function Patient() {
                     </Paper>
                 </Grid>
                 <Grid item sm>
-                   <RightPanel style ={style} action = {action} ></RightPanel>
+                   <RightPanel accAdd = {acc.accAdd} style ={style} action = {action} ></RightPanel>
                 </Grid>
             </Grid>
+            </div>}
         </div>
     )
 }

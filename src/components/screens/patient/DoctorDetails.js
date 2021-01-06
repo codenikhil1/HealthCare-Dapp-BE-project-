@@ -8,7 +8,7 @@ import web3 from '../../../web3'
 import contract from '../../../contract'
 import ipfs from '../../../ipfs'
 import ShowDoctors from './ShowDoctors'
-function DoctorDetails() {
+function DoctorDetails({accAdd}) {
     const[show,setShow] = useState(false);
     const logdata = []
     const [tabledata,settabledata] = useState();
@@ -33,7 +33,7 @@ function DoctorDetails() {
     },[show])
     return (
         <div>
-            {show ? <ShowDoctors data = {tabledata} showData = {show}></ShowDoctors> :
+            {show ? <ShowDoctors data = {tabledata} showData = {show} accAdd = {accAdd}></ShowDoctors> :
                 <CircularProgress></CircularProgress>
             }
              

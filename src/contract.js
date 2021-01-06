@@ -55,6 +55,12 @@ const abi = [
         "type": "address"
       },
       {
+        "indexed": true,
+        "internalType": "address",
+        "name": "Pid",
+        "type": "address"
+      },
+      {
         "indexed": false,
         "internalType": "uint256",
         "name": "tid",
@@ -158,6 +164,27 @@ const abi = [
       }
     ],
     "name": "getDoctor",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_Iadd",
+        "type": "address"
+      }
+    ],
+    "name": "getIns",
     "outputs": [
       {
         "internalType": "string",
@@ -315,22 +342,7 @@ const abi = [
       },
       {
         "internalType": "string",
-        "name": "_diagnosis",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_test_conducted",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_bill",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_medicine",
+        "name": "_Thash",
         "type": "string"
       }
     ],
@@ -389,36 +401,9 @@ const abi = [
     "name": "getTrtDetails",
     "outputs": [
       {
-        "components": [
-          {
-            "internalType": "address",
-            "name": "doctor_id",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "diagnosis",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "test_conducted",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "bill",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "medicine",
-            "type": "string"
-          }
-        ],
-        "internalType": "struct Health.treatment",
-        "name": "trt",
-        "type": "tuple"
+        "internalType": "string",
+        "name": "",
+        "type": "string"
       }
     ],
     "payable": false,
@@ -440,6 +425,33 @@ const abi = [
         "internalType": "bool",
         "name": "",
         "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "getMedicineDetails",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "pid",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "medicines",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct Health.medicine[]",
+        "name": "",
+        "type": "tuple[]"
       }
     ],
     "payable": false,
@@ -521,5 +533,6 @@ const abi = [
   }
 ]
 
-const address = '0x66A8D9b31c1f64fC538bFE943C94468C3BA8F657';
+
+const address = '0xf4855bF5256584Ab18605c43587D17a4CbE537DF';
 export default new web3.eth.Contract(abi,address);

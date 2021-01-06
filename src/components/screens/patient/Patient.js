@@ -65,6 +65,12 @@ function Patient() {
                     <ListItem button>
                       <ListItemText primary="Apply For Insurance" onClick={() =>selectAction(5)} />
                     </ListItem>
+                    <ListItem button>
+                      <ListItemText primary="TreatMent Details" onClick={() =>selectAction(6)} />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemText primary="Medicines Info" onClick={() =>selectAction(7)} />
+                    </ListItem>
                   </List>
                     </Paper>
                 </Grid>

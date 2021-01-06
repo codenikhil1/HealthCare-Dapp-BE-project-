@@ -65,10 +65,6 @@ export default function Patientsignin() {
         })
         alert("form submitted")
     }
-
-    useEffect( () => {
-      
-    }, [])
   return (
   <div>
   <Header item = "signUp" ></Header>

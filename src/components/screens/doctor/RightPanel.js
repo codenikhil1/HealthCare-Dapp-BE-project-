@@ -10,7 +10,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import  TreatPatient from"./TreatPatient"
-import GetTreat from "./GetTreat"
+import GetTreat from "./TreatMent/GetTreat"
 import UpdatePre from './Updatepre'
 import  SendMed from"./SendMed"
 const style = {
@@ -24,10 +24,10 @@ function RightPanel(props) {
             {props.action == 0 ? <Typography variant="h2" component="h2" color = 'textSecondary'> 
             Doctor Dashboard
        </Typography> : 
-            props.action == 1 ? <TreatPatient></TreatPatient> :
-            props.action == 2 ? <SendMed></SendMed> : 
-            props.action == 3 ? <GetTreat></GetTreat>: 
-            props.action == 4 ? <UpdatePre></UpdatePre> :"" }
+            props.action == 1 ? <TreatPatient accAdd = {props.accAdd}></TreatPatient> :
+            props.action == 2 ? <SendMed accAdd = {props.accAdd}></SendMed> : 
+            props.action == 3 ? <GetTreat accAdd = {props.accAdd}></GetTreat>: 
+            props.action == 4 ? <UpdatePre accAdd = {props.accAdd}></UpdatePre> :"" }
         </Paper>
         </div>
     )

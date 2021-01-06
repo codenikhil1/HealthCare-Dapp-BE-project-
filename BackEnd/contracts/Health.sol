@@ -12,7 +12,7 @@ contract Health {
     mapping(address => insaurance) IData;
     mapping(address => chemist) CData;
     mapping(uint => treatment) treatmentDetails;
-    mapping(address => medicine) chemToMed;
+    mapping(address => medicine[]) chemToMed;
     mapping(address => bill[]) patToChemistBill;
     mapping(address => address[]) insToPat;
     //constructor
@@ -25,7 +25,7 @@ contract Health {
      event DoctorAdded(address doctorAdd);
      event ChemistAdded(address ChemistAdd);
      event insAdded(address insAdd);
-     event treated(address indexed Did,uint tid);
+     event treated(address indexed Did,address indexed Pid,uint tid);
     //structs
     struct bill{
         address chemid;
@@ -48,11 +48,7 @@ contract Health {
         string Ihash;
     }
      struct treatment {
-        address doctor_id;
-        string diagnosis;
-        string test_conducted;
-        uint bill;
-        string medicine;
+        string Thash;
     }
     struct medicine{
         address pid;
@@ -89,17 +85,20 @@ contract Health {
         //need to complete
          return DData[_Dadd].Dhash; 
     }
+    function getIns(address _Iadd) public returns(string memory){
+        //need to complete
+         return IData[_Iadd].Ihash; 
+    }
     
     function grantAccess(address _Dadd) public returns(bool){
         require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("patient")));
         patToDoctor[msg.sender].push(_Dadd);
         return true;
     }
-    
     //check give address is insaurance company is or not
     function applyIns(address _Iadd) public returns(bool){
          require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("patient")));
-         require(keccak256(abi.encodePacked(userType[_Iadd])) == keccak256(abi.encodePacked("Insurance")));
+         require(keccak256(abi.encodePacked(userType[_Iadd])) == keccak256(abi.encodePacked("Insaurance")));
          insToPat[_Iadd].push(msg.sender);
          return true;
             
@@ -139,20 +138,16 @@ contract Health {
    function random() private view returns (uint) {
        return uint(uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty)))%251);
    }
-    function treatPatient(address _Padd, string memory _diagnosis,string memory _test_conducted,uint _bill,string memory _medicine)
+    function treatPatient(address _Padd, string memory _Thash)
     public returns(uint){
         require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("doctor")));
         require(isValid(_Padd,msg.sender) == true);
         uint _tid = random();
         treatment memory trt;
-        trt.doctor_id = msg.sender;
-        trt.diagnosis = _diagnosis;
-        trt.test_conducted = _test_conducted;
-        trt.bill = _bill;
-        trt.medicine = _medicine;
-        treatmentDetails[_tid] = trt;
+        trt.Thash = _Thash;
         PData[_Padd].treatmentId.push(_tid);
-        emit treated(msg.sender,_tid);
+        treatmentDetails[_tid] = trt;
+        emit treated(msg.sender,_Padd,_tid);
         return _tid;
     }
     //check if chemist is present   
@@ -160,15 +155,11 @@ contract Health {
         require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("doctor")));
         require(keccak256(abi.encodePacked(userType[_cadd])) == keccak256(abi.encodePacked("Chemist")));
         require(isValid(_pid,msg.sender) == true);
-        medicine memory md;
-        md.pid = _pid;
-        md.medicines = _medicines;
-        chemToMed[_cadd] = md;
+        chemToMed[_cadd].push(medicine(_pid,_medicines));
         return true;
     }
-    function getTrtDetails(uint _tid) public returns(treatment memory trt){
-         require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("doctor")));
-         return treatmentDetails[_tid];
+    function getTrtDetails(uint _tid) public returns(string memory){
+         return treatmentDetails[_tid].Thash;
     }
     
     //chemist
@@ -180,7 +171,10 @@ contract Health {
         emit ChemistAdded(msg.sender);
         return true;
     }
-    
+    function getMedicineDetails() public returns(medicine[] memory){
+        require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("Chemist")));
+        return chemToMed[msg.sender];
+    }
     function sellMedicines(address _pid,string memory _date,uint _amt) public returns(bool){
         require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("Chemist")));
         
@@ -192,13 +186,13 @@ contract Health {
    
    function addInsCompany(string memory Ihash) public returns(bool){
        require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("")));
-        userType[msg.sender] = 'Insurance';
+        userType[msg.sender] = 'Insaurance';
         IData[msg.sender].Ihash = Ihash;
         emit insAdded(msg.sender);
         return true;
    }
     function approveInsurance(address patId) public returns(bool){
-        require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("Insurance")));
+        require(keccak256(abi.encodePacked(userType[msg.sender])) == keccak256(abi.encodePacked("Insaurance")));
         address[] memory arr = insToPat[msg.sender];
         uint len = arr.length;
         int j = -122;

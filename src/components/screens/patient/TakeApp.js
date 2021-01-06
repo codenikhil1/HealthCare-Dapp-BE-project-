@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
   }));
 function TakeApp(props) {
     const classes = useStyles();
-    const [isShow,SetShow] = useState(false)
     const [docAdd,setDocAdd] = useState("");
     const grantAccess = (event)=>{
       event.preventDefault();
@@ -49,11 +48,6 @@ function TakeApp(props) {
         </Button>
         </form>
         <br></br>
-        <Button style = {{marginTop : '50px'}} onClick = {() =>{SetShow(!isShow)}} color="secondary" >
-                Show Dotors
-        </Button>
-        <br></br>
-        {isShow ? <h1> Doctors</h1> : ""}
         
         </div>
         

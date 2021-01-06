@@ -8,6 +8,8 @@ import DoctorDetails from "./DoctorDetails"
 import  InsDetails from "./InsDetails"
 import TakeApp from "./TakeApp"
 import ApplyIns from "./ApplyIns"
+import TreatMent from "./TreatMentDetails/TreatMent"
+import Bills from "./Bills/Bills"
 const style = {
     TextField : {width : '400px' }
 }
@@ -22,7 +24,10 @@ function RightPanel(props) {
             props.action == 2 ? <MyDetails accAdd = {props.accAdd}></MyDetails> : 
             props.action == 3 ? <DoctorDetails accAdd = {props.accAdd}></DoctorDetails> : 
             props.action == 4 ? <InsDetails accAdd = {props.accAdd}></InsDetails> :
-            props.action == 5 ? <ApplyIns accAdd = {props.accAdd}></ApplyIns> : "" }
+            props.action == 5 ? <ApplyIns accAdd = {props.accAdd}></ApplyIns> : 
+            props.action == 6 ? <TreatMent accAdd = {props.accAdd}></TreatMent> :
+            props.action == 7 ? <Bills accAdd = {props.accAdd}></Bills> :""
+        }
         </Paper>
         </div>
     )

@@ -4,6 +4,8 @@ import {Paper,Button,Typography,Card,CardContent} from '@material-ui/core'
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import web3 from '../../../web3'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import contract from '../../../contract'
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,15 +23,17 @@ function TakeApp(props) {
       if( web3.utils.isAddress(docAdd)){
         contract.methods.grantAccess(docAdd).send({
           from:props.accAdd
-        }).then(function(err,res){
-          if(res){
-            alert("Access Granted")
-          }else{
-            alert("Not Granted")
-          }
+        }).then(function(res){
+          toast.success('Access Granted',{
+            position: "top-left",
+            autoClose: 4000,
+          })
         })
       }else{
-        alert("Enter valid address")
+        toast.error('Enter Valid Address',{
+          position: "top-left",
+          autoClose: 4000,
+        })
       }
       
     }
@@ -48,7 +52,7 @@ function TakeApp(props) {
         </Button>
         </form>
         <br></br>
-        
+        <ToastContainer />
         </div>
         
            

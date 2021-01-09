@@ -120,7 +120,6 @@ function TreatPatient({accAdd}) {
                  Submit
                 </Button>
           </form>
-          <ToastContainer />
             </div>
             
          )

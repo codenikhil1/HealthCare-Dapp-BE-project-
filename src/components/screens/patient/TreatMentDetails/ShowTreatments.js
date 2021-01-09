@@ -1,18 +1,33 @@
 import React from 'react'
 import {useEffect,useState} from 'react'
 import {Table,TableContainer,TableHead,TableRow,TableCell,TableBody,Button} from "@material-ui/core"
-import ipfs from '../../../../ipfs'
-import web3 from '../../../../web3'
+import Details from './Details'
 import contract from '../../../../contract'
-function ShowTreatments({data}) {
+import ipfs from '../../../../ipfs'
+function ShowTreatments({data,accAdd}) {
     //show model when user clicks on treatment Id
     //for refrence see showdoctors.js and dataDialog.js
     const [open, setOpen] = useState(false);
     const[treatInfo,setTreatInfo] = useState(
-        {"pid":"","diagnosis":"","Tests":"","Bill":"","medicines":""})
+        {"did":"","diagnosis":"","Tests":"","Bill":"","medicines":""})
     const handleClickOpen = async(e) => {
             e.preventDefault();
-            //console.log(e.currentTarget.value)
+            const value = e.currentTarget.value;
+            await contract.methods.getTrtDetails(value).call({
+              from:accAdd
+            }).then(async function(res){
+              await ipfs.catJSON(res).then(async function(data){
+                console.log(data)
+                await setTreatInfo({
+                  did:data.did,
+                  diagnosis : data.diagnosis,
+                  Tests : data.tests,
+                  Bill : data.bill,
+                  medicines : data.medicines
+                })
+              })
+              setOpen(true);
+            })
             
 
     }
@@ -45,6 +60,7 @@ function ShowTreatments({data}) {
           </TableBody>
         </Table>
       </TableContainer>
+      <Details handleClose = {handleClose} open = {open} title = "TreatMent Details" details = { treatInfo} ></Details>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 const Web3 = require('web3');
 const web3 = new Web3('HTTP://127.0.0.1:7545');
 
-const abi =  [
+const abi =[
   {
     "inputs": [],
     "payable": false,
@@ -369,13 +369,13 @@ const abi =  [
         "type": "address"
       },
       {
-        "internalType": "address",
-        "name": "_cadd",
-        "type": "address"
+        "internalType": "string",
+        "name": "_medicines",
+        "type": "string"
       },
       {
         "internalType": "string",
-        "name": "_medicines",
+        "name": "_date",
         "type": "string"
       }
     ],
@@ -435,7 +435,13 @@ const abi =  [
   },
   {
     "constant": false,
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_pid",
+        "type": "address"
+      }
+    ],
     "name": "getMedicineDetails",
     "outputs": [
       {
@@ -448,6 +454,11 @@ const abi =  [
           {
             "internalType": "string",
             "name": "medicines",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "date",
             "type": "string"
           }
         ],
@@ -514,6 +525,21 @@ const abi =  [
   },
   {
     "constant": false,
+    "inputs": [],
+    "name": "getAppliedForIns",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
     "inputs": [
       {
         "internalType": "address",
@@ -562,17 +588,17 @@ const address = '0xCfa5859B05d5bFEee874aB919B1468cC2d8F5D27';
 //            console.log(result);
 // })
 
-contract.getPastEvents('treated',{
-  fromBlock:0,
-  filter :{Pid : pat12}
-})
-.then(function(events){
-    console.log(events) // same results as the optional callback above
-});
+// contract.getPastEvents('treated',{
+//   fromBlock:0,
+//   filter :{Pid : pat12}
+// })
+// .then(function(events){
+//     console.log(events) // same results as the optional callback above
+// });
 
 
-// contract.methods.getPatient(doctor2).call({
-//   from:doctor2
+// contract.methods.getPatient(pat12).call({
+//   from:pat12
 // }).then(function(mydata){
 //   console.log(mydata)
 // })
@@ -638,26 +664,26 @@ contract.getPastEvents('treated',{
 
 
 
-// contract.methods.updatePrecautions(patient,"dsdssdihs").send({
-//     from : doctor,gas:3000000
+// contract.methods.getMedicineDetails(pat12).call({
+//     from : '0xC12d1B1f90DEE9DC701104c62C1823f9FB826eFf'
 //  }).then(function(result){
 //      console.log(result);
 // })
 
 
-// contract.methods.giveMedicines(patient,chemist,"uesuheds asperin").send({
-//     from : doctor,gas:3000000
+// contract.methods.giveMedicines(pat12,"uesuheds asperin",'01/01/2021').send({
+//     from : doc3,gas:3000000
 //  }).then(function(result){
 //      console.log(result);
 // })
 
 
 
-// contract.methods.getTrtDetails(61).call({
-//     from:doctor
-// }).then(function(res){
-//     console.log(res);
-// })
+contract.methods.getAppliedForIns().call({
+    from:insaurance
+}).then(function(res){
+    console.log(res);
+})
 const pat2 = "0x95045D67B0B16b7314b1fC737b4F67E9fd9F5cEe"
 
 
@@ -693,7 +719,8 @@ const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
 //     const doc = JSON.stringify({
 //       name: "bar",
 //       address: "tac",
-//       mobNo:"65662"
+//       mobNo:"65662",
+//       age:25
 //     });
 //     await ipfs.addJSON(doc,async (err,hash)=>{
 //       if(err){

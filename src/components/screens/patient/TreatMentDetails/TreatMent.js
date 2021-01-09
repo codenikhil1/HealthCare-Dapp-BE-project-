@@ -31,7 +31,7 @@ function TreatMent({accAdd}) {
     return (
        <div>
             {show ? <div>
-                <ShowTreatments data = {tabledata}></ShowTreatments> </div> : <CircularProgress></CircularProgress>}
+                <ShowTreatments data = {tabledata} accAdd = {accAdd}></ShowTreatments> </div> : <CircularProgress></CircularProgress>}
         </div>
     )
 }

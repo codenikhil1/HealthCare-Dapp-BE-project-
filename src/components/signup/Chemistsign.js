@@ -4,6 +4,8 @@ import Button from "@material-ui/core/Button"
 import {useState,useEffect} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import {Chip,Typography} from '@material-ui/core/';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../../css/forms.css'
 import Header from '../header'
 import web3 from '../../web3'
@@ -52,9 +54,10 @@ export default function Chemitsignin() {
                         if(err){
                           alert("User already present")
                         }else{
-                         console.log(hash);
-                          console.log(result)
-                          alert("Successfull")
+                        toast.success('New chemist Created',{
+                          position: "top-left",
+                          autoClose: 4000,
+                        })
                   }
              })
            }

@@ -35,7 +35,7 @@ function Main() {
         <Header item = "home"></Header>
             <div className={classes.Card}>
             <Link to="/patientsignin" style={{ textDecoration: 'none'}}>
-            <Card className={classes.root}>
+            <Card className={classes.root} >
             <CardActionArea>
               <CardMedia
                 className={classes.media}

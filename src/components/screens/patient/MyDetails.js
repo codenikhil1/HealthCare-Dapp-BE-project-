@@ -9,7 +9,7 @@ import ipfs from '../../../ipfs'
 function MyDetails(props) {
     const[infoLoaded,setInfoLoaded] = useState(false);
     const[mydata,setMyData] = useState({
-      name:"",address:"",mobNo:"",allergies:"",age:"",email:""
+      name:"",address:"",mobNo:"",allergies:"",age:"",email:"",precautions:""
     })
     useEffect(() => {
         async function loadDetails(){
@@ -25,7 +25,8 @@ function MyDetails(props) {
                   mobNo : ipfsdata.mobNo,
                   allergies : ipfsdata.allergies,
                   age: ipfsdata.age,
-                  email : ipfsdata.email
+                  email : ipfsdata.email,
+                  precautions:mydata[2]
                 })
                 setInfoLoaded(true);
               }).
@@ -57,7 +58,9 @@ function MyDetails(props) {
             <Typography variant="h5" component="h2">
               Allergies : {mydata.allergies}
             </Typography>
-            
+            <Typography variant="h5" component="h2">
+              precautions : {mydata.precautions}
+            </Typography>
           </CardContent>
         </Card>
           </div> :

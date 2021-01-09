@@ -1,5 +1,5 @@
 import web3 from './web3';
-const abi = [
+const abi =[
   {
     "inputs": [],
     "payable": false,
@@ -367,13 +367,13 @@ const abi = [
         "type": "address"
       },
       {
-        "internalType": "address",
-        "name": "_cadd",
-        "type": "address"
+        "internalType": "string",
+        "name": "_medicines",
+        "type": "string"
       },
       {
         "internalType": "string",
-        "name": "_medicines",
+        "name": "_date",
         "type": "string"
       }
     ],
@@ -433,7 +433,13 @@ const abi = [
   },
   {
     "constant": false,
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_pid",
+        "type": "address"
+      }
+    ],
     "name": "getMedicineDetails",
     "outputs": [
       {
@@ -446,6 +452,11 @@ const abi = [
           {
             "internalType": "string",
             "name": "medicines",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "date",
             "type": "string"
           }
         ],
@@ -512,6 +523,21 @@ const abi = [
   },
   {
     "constant": false,
+    "inputs": [],
+    "name": "getAppliedForIns",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
     "inputs": [
       {
         "internalType": "address",
@@ -534,5 +560,5 @@ const abi = [
 ]
 
 
-const address = '0xf4855bF5256584Ab18605c43587D17a4CbE537DF';
+const address = '0xCfa5859B05d5bFEee874aB919B1468cC2d8F5D27';
 export default new web3.eth.Contract(abi,address);

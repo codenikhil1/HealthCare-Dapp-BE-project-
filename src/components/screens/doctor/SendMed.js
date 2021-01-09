@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import contract from '../../../contract'
 function SendMed({accAdd}) {
     const [MedInfo, setMedInfo] = useState({
-      pid:"",chemId:"",medicines:""
+      pid:"",date:"",medicines:""
     })
     const onChangeHandler = (e)=>{
       const id = e.target.id;
@@ -22,8 +22,8 @@ function SendMed({accAdd}) {
     const onSubmit = async (event)=>{
       console.log("submit called")
       event.preventDefault();
-      if( await web3.utils.isAddress(MedInfo.pid) && await web3.utils.isAddress(MedInfo.chemId)){
-        await contract.methods.giveMedicines(MedInfo.pid,MedInfo.chemId,MedInfo.medicines).send({
+      if( await web3.utils.isAddress(MedInfo.pid)){
+        await contract.methods.giveMedicines(MedInfo.pid,MedInfo.medicines,MedInfo.date).send({
           from:accAdd,gas:300000
         }).then(function(res){
           toast.success('Medications send successfully',{
@@ -32,7 +32,7 @@ function SendMed({accAdd}) {
           })
         })
       }else{
-        toast.error('Patient or Chemist Address is incorrest',{
+        toast.error('Patient  Address is incorrest',{
           position: "top-left",
           autoClose: 4000,
         })
@@ -54,10 +54,10 @@ function SendMed({accAdd}) {
             <br></br>
             <br></br>
             <TextField 
-            id="chemId" 
-            label="Chemist Address"
+            id="date" 
             onChange={onChangeHandler}
-            value = {MedInfo.chemId} 
+            value = {MedInfo.date} 
+            type='date'
             required style={{width:"400px"}} />
             <br></br>
             <br></br>
@@ -78,7 +78,6 @@ function SendMed({accAdd}) {
         </Button>
             </form>
         <br></br><br></br>
-        <ToastContainer />
         </div>
     )
 }

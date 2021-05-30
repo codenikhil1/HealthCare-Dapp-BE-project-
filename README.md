@@ -1,6 +1,6 @@
 ## Installation
 
-##Run 'npm start'
+## Run 'npm start'
 
 ## Install Truffle
 ```npm install -g truffle```
@@ -9,8 +9,7 @@
 -check port number mentioned in file truffle-config.js is same as ganache is running on.
 
 # Deploying smart contract
-Clone smart contract repository for this porject
-```https://github.com/codenikhil1/HealthCare-Dapp-BE-project-```
+
 
 
 Then run the below command in /Backend folder
